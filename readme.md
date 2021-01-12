@@ -3,7 +3,10 @@
 Danger project is abandoned year ago
 maybe I can do it
 
-# Project About
+# Name
+Scanner of network Yggdrasil 
+
+## Project About
 
 Scanner of network Yggdrasil 
 Реализация сбора нод и линков от точки первоначальной ноды (пользователя)
@@ -15,9 +18,9 @@ Scanner of network Yggdrasil
 
 ## Authors
 
-* **Katelinlis** - *Initial work* - [katelinlis](https://github.com/katelinlis)
+*  [katelinlis](https://github.com/katelinlis) - *Initial work* 
 
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
+See also the list of [contributors](https://github.com/katelinlis/Scanner_Yggdrasil/contributors) who participated in this project.
 
 
 ## Acknowledgments
