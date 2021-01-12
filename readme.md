@@ -1,11 +1,30 @@
+
+
+Danger project is abandoned year ago
+maybe I can do it
+
+# Name
+Scanner of network Yggdrasil 
+
+## Project About
+
+Scanner of network Yggdrasil 
 Реализация сбора нод и линков от точки первоначальной ноды (пользователя)
 
-1. Получение инфы о пользователе 
-2. получение ближайших узлов по DHT 
-3. рекурсивный сбор по новым нодам 
+Получение инфы о пользователе
+получение ближайших узлов по DHT
+рекурсивный сбор по новым нодам
 
-TODO:
-1. Рефакторинг кода 
-2. переход с Gorm на PGX
-3. подключение к карте 
-4. реализация вывода всех линков 
+
+## Authors
+
+*  [katelinlis](https://github.com/katelinlis) - *Initial work* 
+
+See also the list of [contributors](https://github.com/katelinlis/Scanner_Yggdrasil/contributors) who participated in this project.
+
+
+## Acknowledgments
+
+* Hat tip to anyone whose code was used
+* Inspiration
+* etc
