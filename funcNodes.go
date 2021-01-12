@@ -20,8 +20,11 @@ func SaveNode(address string, Coords string) uint {
 func SaveLinks(PrimaryPeerID uint, ipv6 string, coords string) {
 	SecondPeerID := SaveNode(ipv6, coords)
 	var peerLink model.PeerLinks
+	peerLink.NodeIDPrimary = PrimaryPeerID
+	peerLink.NodeIDSecond = SecondPeerID
+
 	database := db.Database()
-	database.FirstOrCreate(&peerLink, model.PeerLinks{NodeIDPrimary: PrimaryPeerID, NodeIDSecond: SecondPeerID})
+	database.Save(&peerLink)
 	_ = database.Close()
 }
 
@@ -29,13 +32,12 @@ func worker(wg *sync.WaitGroup, quotaChan chan Nodes) {
 	quotaChan <- Nodes{} // занимаем слот в канале. Если места не будет, то горутина будет ждать и не начнет работу, пока не освободиться место
 	defer wg.Done()
 
-	<-quotaChan
 	for data := range quotaChan {
-		Gen(data.FromIPv6, data.FromCoords, Default.DoRequest(Default.GetDHTPingRequest(data.BoxPubKey, data.Coords, "")), quotaChan)
-		Gen(data.FromIPv6, data.FromCoords, Default.DoRequest(Default.GetDHTPingRequest(data.BoxPubKey, data.Coords, strings.Repeat("0", 128))), quotaChan)
-		Gen(data.FromIPv6, data.FromCoords, Default.DoRequest(Default.GetDHTPingRequest(data.BoxPubKey, data.Coords, strings.Repeat("f", 128))), quotaChan)
+		go Gen(data.FromIPv6, data.FromCoords, Default.DoRequest(Default.GetDHTPingRequest(data.BoxPubKey, data.Coords, "")), quotaChan, wg)
+		go Gen(data.FromIPv6, data.FromCoords, Default.DoRequest(Default.GetDHTPingRequest(data.BoxPubKey, data.Coords, strings.Repeat("0", 128))), quotaChan, wg)
+		go Gen(data.FromIPv6, data.FromCoords, Default.DoRequest(Default.GetDHTPingRequest(data.BoxPubKey, data.Coords, strings.Repeat("f", 128))), quotaChan, wg)
+		<-quotaChan
+		runtime.Gosched() // передает управление другой горутине
 	}
-	runtime.Gosched() // передает управление другой горутине
-
 	<-quotaChan // освобождает слот
 }
